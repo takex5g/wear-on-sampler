@@ -54,7 +54,7 @@ export default Vue.extend({
     },
     async loadFiles() {
       for (const filename of this.fileNames) {
-        this.Audio.push(new AudioHandler(`/audio/${filename}`))
+        this.Audio.push(new AudioHandler(`./audio/${filename}`))
       }
 
       await Promise.all(this.Audio.map((target) => target?.fetch())).then(
