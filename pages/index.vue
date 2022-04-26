@@ -18,13 +18,18 @@
         </b-tab-item>
       </b-tabs>
     </div>
+    <p>
+      効果音:<a href="https://soundeffect-lab.info/sound/anime/" target="_brank"
+        >効果音ラボ</a
+      >
+    </p>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 const audioList = require(`~/assets/audioList.json`)
 const SOUND_KEY = ['1', '2', '3', 'Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
-const SWITCH_SCENE_KEY = ['I', 'O', 'P', '{']
+const SWITCH_SCENE_KEY = ['U', 'I', 'O', 'J', 'K', 'L']
 
 export type audioArrayType = [string, string[]]
 type DataType = {
