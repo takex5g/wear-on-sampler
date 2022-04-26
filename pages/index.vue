@@ -1,29 +1,32 @@
 <template>
   <div>
-    一時間サンプラー{{ currentScene }}
     <div>
       <button
-        v-for="name in sceneNames"
+        v-for="(name, index) in sceneNames"
         :key="name"
         @click="currentScene = name"
       >
-        {{ name }}
+        {{ sceneFormat(name, index) }}
       </button>
     </div>
     <div v-for="(name, index) in sceneNames" :key="name">
-      <SceneView
-        v-if="name == currentScene"
-        ref="scene"
-        :audio-entry="audioArray[index]"
-        :chara="chara"
-      />
+      <div v-if="name == currentScene">
+        <SceneView
+          v-if="audioArray.length > index"
+          ref="scene"
+          :audio-entry="audioArray[index]"
+          :chara="chara"
+        />
+        <div v-else>無音</div>
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 const audioList = require(`~/assets/audioList.json`)
-const chara = ['1', '2', '3', 'Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
+const SOUND_KEY = ['1', '2', '3', 'Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
+const SWITCH_SCENE_KEY = ['I', 'O', 'P', '{']
 
 export type audioArrayType = [string, string[]]
 type DataType = {
@@ -39,13 +42,14 @@ export default Vue.extend({
       currentScene: '',
       audioArray: Object.entries(audioList),
       sceneNames: [],
-      chara,
+      chara: SOUND_KEY,
     }
   },
   created() {
     for (const elem of this.audioArray) {
       this.sceneNames.push(elem[0])
     }
+    this.sceneNames.push('無音')
     this.currentScene = this.sceneNames[0]
   },
   mounted() {
@@ -56,12 +60,23 @@ export default Vue.extend({
     window.removeEventListener('keydown', this.keyAction)
   },
   methods: {
+    sceneFormat(str: string, index: number) {
+      return `${str}\n${SWITCH_SCENE_KEY[index]}`
+    },
     keyAction(e: KeyboardEvent) {
-      const index = this.chara.findIndex(
+      const soundIndex = this.chara.findIndex(
         (c) => c.toUpperCase() === e.key.toUpperCase()
       )
-      if (index === -1) return
-      ;(this.$refs as any).scene[0].play(index)
+      if (soundIndex !== -1) {
+        ;(this.$refs as any).scene[0].play(soundIndex)
+        return
+      }
+      const switchIndex = SWITCH_SCENE_KEY.findIndex(
+        (c) => c.toUpperCase() === e.key.toUpperCase()
+      )
+      if (switchIndex !== -1) {
+        this.currentScene = this.sceneNames[switchIndex]
+      }
     },
   },
 })
