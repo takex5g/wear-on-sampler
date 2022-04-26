@@ -31,6 +31,9 @@ export default {
   generate: {
     dir: 'docs',
   },
+  router: {
+    base: '/wear-on-sampler/',
+  },
   modules: [
     // Simple usage
     'nuxt-buefy',
