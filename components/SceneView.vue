@@ -6,7 +6,7 @@
       :key="index"
       @click="play(index)"
     >
-      {{ rmExtension(audioname) }}
+      {{ rmExtension(audioname, index) }}
     </button>
   </div>
 </template>
@@ -23,6 +23,10 @@ export default Vue.extend({
     audioEntry: {
       // @ts-ignore
       type: Array as PropType<audioArrayType>,
+      required: true,
+    },
+    chara: {
+      type: Array as PropType<string[]>,
       required: true,
     },
   },
@@ -64,8 +68,9 @@ export default Vue.extend({
         handler?.close()
       }
     },
-    rmExtension(str: string) {
-      return str.replace('.mp3', '')
+    rmExtension(str: string, index: number) {
+      const rmExtension = str.replace('.mp3', '')
+      return `${rmExtension}\n${this.chara[index]}`
     },
   },
 })
