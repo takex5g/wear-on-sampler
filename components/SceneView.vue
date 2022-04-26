@@ -55,7 +55,7 @@ export default Vue.extend({
     async loadFiles() {
       for (const filename of this.fileNames) {
         this.Audio.push(
-          new AudioHandler(this.$router.options.base + `/audio/${filename}`)
+          new AudioHandler(this.$router.options.base + `audio/${filename}`)
         )
       }
 
