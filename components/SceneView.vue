@@ -1,13 +1,12 @@
 <template>
   <div>
-    <div>シーン名:{{ name }}</div>
-    <button
+    <b-button
       v-for="(audioname, index) in fileNames"
       :key="index"
       @click="play(index)"
     >
-      {{ rmExtension(audioname, index) }}
-    </button>
+      {{ rmExtension(audioname, index) }}</b-button
+    >
   </div>
 </template>
 <script lang="ts">

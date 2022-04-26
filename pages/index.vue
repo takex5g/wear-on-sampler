@@ -1,24 +1,22 @@
 <template>
   <div>
     <div>
-      <button
-        v-for="(name, index) in sceneNames"
-        :key="name"
-        @click="currentScene = name"
-      >
-        {{ sceneFormat(name, index) }}
-      </button>
-    </div>
-    <div v-for="(name, index) in sceneNames" :key="name">
-      <div v-if="name == currentScene">
-        <SceneView
-          v-if="audioArray.length > index"
-          ref="scene"
-          :audio-entry="audioArray[index]"
-          :chara="chara"
-        />
-        <div v-else>無音</div>
-      </div>
+      <b-tabs v-model="currentScene" destroy-on-hide>
+        <b-tab-item
+          v-for="(name, index) in sceneNames"
+          :key="name"
+          :value="name"
+          :label="sceneFormat(name, index)"
+        >
+          <SceneView
+            v-if="audioArray.length > index"
+            ref="scene"
+            :audio-entry="audioArray[index]"
+            :chara="chara"
+          />
+          <div v-else>無音</div>
+        </b-tab-item>
+      </b-tabs>
     </div>
   </div>
 </template>
