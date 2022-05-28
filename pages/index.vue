@@ -11,11 +11,12 @@
           v-for="(name, index) in sceneNames"
           :key="name"
           :value="name"
-          :label="sceneNameFormat(name, index)"
         >
           <template #header>
             <span
-              ><b-tag rounded>{{ sceneKeyFormat(index) }}</b-tag>
+              ><b-tag
+                ><b>{{ sceneKeyFormat(index) }}</b></b-tag
+              >
               {{ name }}
             </span>
           </template>
@@ -30,13 +31,17 @@
       </b-tabs>
     </div>
     <footer>
-      <p>
-        効果音:<a
-          href="https://soundeffect-lab.info/sound/anime/"
-          target="_brank"
-          >効果音ラボ</a
-        >
-      </p>
+      <div class="content has-text-centered">
+        <p>
+          <strong>wear-on Sampler</strong> by
+          <a href="https://github.com/takex5g" target="_brank"> takex5g</a>
+          <br />
+          Sound effect by
+          <a href="https://soundeffect-lab.info/sound/anime/" target="_brank"
+            >効果音ラボ</a
+          >
+        </p>
+      </div>
     </footer>
   </div>
 </template>

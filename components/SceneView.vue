@@ -3,7 +3,8 @@
     <div v-for="(audioName, index) in fileNames" :key="index" class="column">
       <div class="buttons">
         <b-button @click="play(index)" size="is-large" expanded>
-          <b-tag rounded size="is-large">{{ audioIndexKey(index) }}</b-tag
+          <b-tag rounded size="is-large"
+            ><b>{{ audioIndexKey(index) }}</b></b-tag
           >{{ rmExtension(audioName, index) }}</b-button
         >
       </div>
