@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <b-button
-      v-for="(audioname, index) in fileNames"
-      :key="index"
-      @click="play(index)"
-    >
-      {{ rmExtension(audioname, index) }}</b-button
-    >
+  <div class="columns">
+    <div v-for="(audioName, index) in fileNames" :key="index" class="column">
+      <div class="buttons">
+        <b-button @click="play(index)" size="is-large" expanded>
+          <b-tag rounded size="is-large"
+            ><b>{{ audioIndexKey(index) }}</b></b-tag
+          >{{ rmExtension(audioName, index) }}</b-button
+        >
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -69,9 +71,12 @@ export default Vue.extend({
         handler?.close()
       }
     },
-    rmExtension(str: string, index: number) {
+    rmExtension(str: string) {
       const rmExtension = str.replace('.mp3', '')
-      return `${rmExtension}\n${this.chara[index]}`
+      return rmExtension
+    },
+    audioIndexKey(index: number) {
+      return this.chara[index]
     },
   },
 })
