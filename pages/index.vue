@@ -1,13 +1,24 @@
 <template>
   <div>
     <div>
-      <b-tabs v-model="currentScene" destroy-on-hide>
+      <b-tabs
+        v-model="currentScene"
+        destroy-on-hide
+        position="is-centered"
+        multiline
+      >
         <b-tab-item
           v-for="(name, index) in sceneNames"
           :key="name"
           :value="name"
-          :label="sceneFormat(name, index)"
+          :label="sceneNameFormat(name, index)"
         >
+          <template #header>
+            <span
+              ><b-tag rounded>{{ sceneKeyFormat(index) }}</b-tag>
+              {{ name }}
+            </span>
+          </template>
           <SceneView
             v-if="audioArray.length > index"
             ref="scene"
@@ -18,11 +29,15 @@
         </b-tab-item>
       </b-tabs>
     </div>
-    <p>
-      効果音:<a href="https://soundeffect-lab.info/sound/anime/" target="_brank"
-        >効果音ラボ</a
-      >
-    </p>
+    <footer>
+      <p>
+        効果音:<a
+          href="https://soundeffect-lab.info/sound/anime/"
+          target="_brank"
+          >効果音ラボ</a
+        >
+      </p>
+    </footer>
   </div>
 </template>
 <script lang="ts">
@@ -63,8 +78,11 @@ export default Vue.extend({
     window.removeEventListener('keydown', this.keyAction)
   },
   methods: {
-    sceneFormat(str: string, index: number) {
+    sceneNameFormat(str: string, index: number) {
       return `${str}\n${SWITCH_SCENE_KEY[index]}`
+    },
+    sceneKeyFormat(index: number) {
+      return SWITCH_SCENE_KEY[index]
     },
     keyAction(e: KeyboardEvent) {
       const soundIndex = this.chara.findIndex(
