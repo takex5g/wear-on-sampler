@@ -13,7 +13,7 @@
   "dependencies": {
     "core-js": "^3.22.8",
     "nuxt": "^2.15.7",
-    "nuxt-buefy": "^0.4.23"
+    "nuxt-buefy": "^0.4.24"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
